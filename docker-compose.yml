@@ -8,6 +8,22 @@ services:
       - "8000:8000"
     volumes:
       - ./service:/service
+    environment:
+      - DB_HOST=database
+      - DB_NAME=pgname
+      - DB_USER=pguser
+      - DB_PASS=pgpass
 
     command: >
       sh -c "python manage.py runserver 0.0.0.0:8000"
+
+    depends_on:
+      - database
+
+
+  database:
+    image: postgres:14.6-alpine
+    environment:
+      - POSTGRES_DB=pgname
+      - POSTGRES_USER=pguser
+      - POSTGRES_PASSWORD=pgpass
