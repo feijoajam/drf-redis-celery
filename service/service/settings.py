@@ -143,3 +143,5 @@ LOGGING = {
         }
     }
 }
+
+CELERY_BROKER_URL = 'redis://redis_hostname:6379/0'
