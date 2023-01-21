@@ -1,6 +1,7 @@
 version: '3.7'
 
 services:
+
   web-app:
     build:
       context: .
@@ -44,6 +45,12 @@ services:
       - redis
     depends_on:
       - redis
+      - database
+    environment:
+      - DB_HOST=database
+      - DB_NAME=pgname
+      - DB_USER=pguser
+      - DB_PASS=pgpass
 
   flower:
     build:
