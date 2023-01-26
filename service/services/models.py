@@ -34,6 +34,9 @@ class TariffPlan(models.Model):
 
     tracker = FieldTracker()
 
+    def __str__(self):
+        return self.plan_type + ": " + str(self.discount_percent)
+
     def save(self, *args, **kwargs):
         if self.tracker.has_changed('discount_percent'):
             for subscription in self.subscriptions.all():
@@ -47,3 +50,5 @@ class Subscription(models.Model):
     plan = models.ForeignKey(TariffPlan, related_name='subscriptions', on_delete=models.PROTECT)
     price = models.PositiveIntegerField(default=0)
 
+    def __str__(self):
+        return str(self.service) + ": " + str(self.plan)
