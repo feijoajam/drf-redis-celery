@@ -1,7 +1,9 @@
 from django.core.validators import MaxValueValidator
 from django.db import models
+from django.db.models.signals import post_delete
 
 from clients.models import Client
+from services.receivers import delete_cache_total_sum
 from services.tasks import set_price
 from model_utils import FieldTracker
 
@@ -52,3 +54,14 @@ class Subscription(models.Model):
 
     def __str__(self):
         return str(self.service) + ": " + str(self.plan)
+
+    def save(self, *args, **kwargs):
+        just_created = not self.pk
+        result = super().save(*args, **kwargs)
+        if just_created:
+            set_price.delay(self.pk)
+        return result
+
+
+# you can use delete method instead of signals
+post_delete.connect(delete_cache_total_sum, sender=Subscription)

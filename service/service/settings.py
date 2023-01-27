@@ -145,3 +145,12 @@ LOGGING = {
 }
 
 CELERY_BROKER_URL = 'redis://redis_hostname:6379/0'
+
+CACHES = {
+    'default': {
+        # 'BACKEND': 'django.core.cache.backends.redis.RedisCache',
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': 'redis://redis_hostname:6379/1',
+    }
+}
+
