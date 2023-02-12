@@ -20,12 +20,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-39*1y0qi)&68s66izz&sj3f5n#6$n-jy_z2+gq4)89yyqei1jm'
+SECRET_KEY = 'your-secret-key'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['.localhost', '127.0.0.1', '[::1]']
 
 
 # Application definition
@@ -150,7 +150,6 @@ CELERY_BROKER_URL = 'redis://redis_hostname:6379/0'
 
 CACHES = {
     'default': {
-        # 'BACKEND': 'django.core.cache.backends.redis.RedisCache',
         'BACKEND': 'django_redis.cache.RedisCache',
         'LOCATION': 'redis://redis_hostname:6379/1',
     }
